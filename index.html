@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Shower Presentation Engine</title>
+	<title>Positron & SpiderNode</title>
 	<meta charset="utf-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -168,6 +168,89 @@
 	So now I'll turn it over to my colleague Ehsan, who will tell you
 	how we're going to get Node running in Positron.
 	-->
+
+	<section class="slide">
+		<h2>SpiderNode</h2>
+		<ol>
+            <li>SpiderMonkey backend for Node</li>>
+            <li>Source compatibility with V8</li>
+            <li>Shim layer implementing the V8 API on top of SpiderMonkey</li>
+            <li>Almost no changes to Node or SpiderMonkey</li>
+		</ol>
+	</section>
+    <!--
+    SpiderNode attempts to be a drop-in replacement for Node based on SpiderMonkey.
+    The implementation works by implementing the V8 API on top of the JSAPI,
+    with the goal of being source compatible with code using the V8 embedding API.
+    So far we have upstreamed a few patches to SpiderMonkey with a few additional
+    patches pending, and have one modification to the Node source code to stop
+    using |for (const x of iterable)|.
+    -->
+
+	<section class="slide">
+      <h2>SpiderShim</h2>
+		<ol>
+            <li>The Good parts
+              <ol>
+                <li>V8/JS Value representation</li>
+              </ol>
+            </li>
+            <li>The Bad parts
+              <ol>
+                <li>Representing handles to GC roots</li>
+              </ol>
+            </li>
+            <li>The Ugly parts
+              <ol>
+                <li>Object/function templates</li>
+              </ol>
+            </li>
+		</ol>
+	</section>
+    <!--
+    While working on SpiderNode, we came across different parts of the API where
+    the mapping from V8 to SpiderMonkey concepts varied from very straightforward
+    to extremely ugly.
+
+    For example, V8 encodes small integers as int32 and uses a fat 64-bit value
+    representation for other data, but this fact is hidden at the API boundaries,
+    so we made SpiderShim's V8::Value be 64-bit always and binary compatible with
+    JS::Value.
+
+    Mapping of the GC rooting API was difficult since the underlying mechanism in
+    V8 and SpiderMonkey are vastly different.  We managed to simulate the V8
+    behavior on top of SpiderMonkey by having a giant Rooted linked list in order
+    to be able to pass pointers to the list items behind v8::Local, but this is
+    probably going to turn out to be slow if not because of anything else because
+    we'd have many more GC roots than strictly necessary.
+
+    Then there are things for which there was no underlying SpiderMonkey concept.
+    For example, V8's Object/FunctionTemplate, where we needed to write a lot of
+    glue code that hopefully simulates V8's observed behavior.
+    -->
+
+	<section class="slide">
+      <h2>Current Status</h2>
+		<ol>
+          <li>As of last week, we can run SpiderNode!</li>
+          <li>Still a few functions left to implement</li>
+          <li>Try running more V8 tests</li>
+          <li>Figure out the next steps</li
+		</ol>
+	</section>
+    <!--
+    Since we started with an existing code base, we spent around 2 months working
+    on the individual bits and pieces used by Node, without being able to test any
+    of the actual work because we couldn't link Node due to the missing symbols.
+    We started to write gtests for things we were implementing, and after a while
+    we started porting the V8 API tests which examined stuff that we support.
+
+    As of early last week, we managed to link and run SpiderNode by stubbing out
+    a few remaining functions which we're working on finishing.  Currently if you
+    have a valid Node application, it should work, but things are brittle, and if
+    your program throws an exception or encounters an error, you're mostly on your
+    own.
+    -->
 
 	<section class="slide">
 		<h2>Shower key features</h2>
