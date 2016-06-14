@@ -312,5 +312,10 @@
 	<script src="node_modules/shower-core/shower.min.js"></script>
 	<!-- Copyright © 2015 Yours Truly, Famous Inc. -->
 	<!-- Photos by John Carey, fiftyfootshadows.net -->
+
+	// Focus a text field to work around Positron issue #82
+	// (https://github.com/mozilla/positron/issues/82).
+	<input id="positron-hack">
+	<script>document.getElementById('positron-hack').focus()</script>
 </body>
 </html>
