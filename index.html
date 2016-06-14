@@ -183,12 +183,12 @@
 
 	<section class="slide">
 		<h2>SpiderNode</h2>
-		<ol>
-            <li>SpiderMonkey backend for Node</li>>
+		<ul>
+            <li>SpiderMonkey backend for Node</li>
             <li>Source compatibility with V8</li>
             <li>Shim layer implementing the V8 API on top of SpiderMonkey</li>
             <li>Almost no changes to Node or SpiderMonkey</li>
-		</ol>
+		</ul>
 	</section>
     <!--
     SpiderNode attempts to be a drop-in replacement for Node based on SpiderMonkey.
@@ -201,23 +201,23 @@
 
 	<section class="slide">
       <h2>SpiderShim</h2>
-		<ol>
+		<ul>
             <li>The Good parts
-              <ol>
+              <ul>
                 <li>V8/JS Value representation</li>
-              </ol>
+              </ul>
             </li>
             <li>The Bad parts
-              <ol>
+              <ul>
                 <li>Representing handles to GC roots</li>
-              </ol>
+              </ul>
             </li>
             <li>The Ugly parts
-              <ol>
+              <ul>
                 <li>Object/function templates</li>
-              </ol>
+              </ul>
             </li>
-		</ol>
+		</ul>
 	</section>
     <!--
     While working on SpiderNode, we came across different parts of the API where
@@ -243,12 +243,12 @@
 
 	<section class="slide">
       <h2>Current Status</h2>
-		<ol>
+		<ul>
           <li>As of last week, we can run SpiderNode!</li>
           <li>Still a few functions left to implement</li>
           <li>Try running more V8 tests</li>
-          <li>Figure out the next steps</li
-		</ol>
+          <li>Figure out the next steps</li>
+		</ul>
 	</section>
     <!--
     Since we started with an existing code base, we spent around 2 months working
