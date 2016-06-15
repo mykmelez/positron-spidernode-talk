@@ -285,6 +285,10 @@
 	<!-- Focus a text field to work around Positron issue #82
 		 (https://github.com/mozilla/positron/issues/82). -->
 	<input id="positron-hack">
-	<script>document.getElementById('positron-hack').focus()</script>
+	<script>
+		window.addEventListener('load', function() {
+			document.getElementById('positron-hack').focus();
+		}, false);
+	</script>
 </body>
 </html>
