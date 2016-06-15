@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Shower Presentation Engine</title>
+	<title>Positron & SpiderNode</title>
 	<meta charset="utf-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -50,19 +50,25 @@
 			}
 		</style>
 	</section>
+
+	<section class="slide">
+		<h2 class="shout">What is Positron?</h2>
+	</section>
+
 	<section class="slide">
 		<h2>Positron</h2>
 		<ol>
 			<li>Electron-compatible</li>
-			<li>Gecko and SpiderMonkey</li>
+			<li>Gecko/SpiderMonkey</li>
 			<li>Mozilla application</li>
 			<li><a href="https://github.com/mozilla/positron/">github.com/mozilla/positron</a></li>
 		</ol>
 		<!--
-		Positron is an Electron-compatible application framework that uses Gecko
-		and SpiderMonkey in place of Blink and V8.  It's a Mozilla application
-		in a fork of gecko-dev (mozilla/positron) with minimal changes
-		to upstream code (in our case upstream is Mozilla, Electron, and Node).
+		Positron is an Electron-compatible application framework that uses
+		Gecko and SpiderMonkey in place of Blink and V8, i.e. Chromium.
+		It's a Mozilla app in a GitHub fork of gecko-dev (mozilla/positron)
+		with minimal changes to upstream code (in our case upstream is Mozilla,
+		Electron, and Node).
 		-->
 	</section>
 
@@ -76,7 +82,7 @@
 		Positron's initial goal is to run Tofino, the browser interaction
 		experiment from the Firefox team, and provide an Electron-like
 		development environment and deployment toolchain, to make it possible
-		for that team to develop and ship Tofino on Gecko and SpiderMonkey.
+		for that team to develop and ship Tofino on our platform.
 		-->
 	</section>
 
@@ -92,7 +98,7 @@
 		<!--
 		We started developing it in April, and it currently runs a small subset
 		of relatively simple Electron apps.  We have partial support for running
-		the "main" script of an Electron app, BrowserWindow instances, IPC,
+		the "main" script of an Electron app, BrowserWindows, IPC,
 		and <webview>. We support some Node modules with a Node-like (which is
 		to say, not-Node) module loader.
 		-->
@@ -107,7 +113,7 @@
 			<li>Profit!</li>
 		</ol>
 		<!--
-		Our roadmap to Tofino runs right through Node, so our next big milestone
+		Our roadmap to Tofino runs through Node, so our next big milestone
 		is to get Node running in Positron so we can load arbitrary modules,
 		after which our focus will shift to implementing the remaining Electron
 		APIs that Tofino uses (f.e. Menu).  We don't have plans on the roadmap
@@ -117,13 +123,19 @@
 	</section>
 
 	<section class="slide">
-		<h2>Why Electron</h2>
+		<h2 class="shout">Why Electron?</h2>
+	</section>
+
+	<section class="slide">
+		<h2>Electron</h2>
 		<ol>
 			<li>shallow learning curve</li>
 			<li>robust ecosystem</li>
 			<li>momentum</li>
 		</ol>
 		<!--
+		There are reasons to emulate Electron beyond Tofino.
+
 		Electron has a shallow learning curve (especially for web developers),
 		a robust ecosystem (including Node and its zillions of packages),
 		and momentum in the marketplace for desktop application frameworks.
@@ -132,15 +144,15 @@
 		built on Electron, including Tofino, Brave, and Min.
 
 		Electron, and its enabling technologies, like GitHub and Node,
-		are powering the next generation of desktop browsers.  It's a brave new
-		world that is worth embracing.
+		are powering the next generation of desktop browsers.  It's a brave,
+		new world that is worth embracing.
 		-->
 	</section>
 
 	<section class="slide">
 		<h2>Future of Embedding</h2>
 		<ol>
-			<li>Tomorrow (Friday) 2:15pm</li>
+			<li>Tomorrow 2:15pm</li>
 			<li>Hilton Meeting Room 15-17</li>
 			<li>Metropole Tower Wing</li>
 		</ol>
@@ -158,151 +170,110 @@
 		Only if we're using our own laptop and can get this presentation working
 		in the sample browser app:
 
-		At this point I'd show you a demo, except that we only have 5 minutes,
-		and also, I already did, because I'm browsing this presentation
-		in a sample Electron browser app running in Positron.
+		At this point I'd show you a demo, except that this is a lightning talk,
+		not a lightning show.  And also, I already did, because I'm browsing
+		this presentation in a sample Electron browser app running in Positron.
 		-->
 	</section>
 
 	<!--
-	So now I'll turn it over to my colleague Ehsan, who will tell you
+	So instead I'll turn it over to my colleague Ehsan, who will tell you
 	how we're going to get Node running in Positron.
 	-->
 
 	<section class="slide">
-		<h2>Shower key features</h2>
-		<ol>
-			<li>Built on HTML, CSS and vanilla JavaScript</li>
-			<li>Works in all modern browsers</li>
-			<li>Themes are separated from engine</li>
-			<li>Modular and extensible</li>
-			<li>Fully keyboard accessible</li>
-			<li>Printable to PDF</li>
-		</ol>
-		<p class="note">Shower ['ʃəuə] noun. A person or thing that shows.</p>
+		<h2>SpiderNode</h2>
+		<ul>
+            <li>SpiderMonkey backend for Node</li>
+            <li>Source compatibility with V8</li>
+            <li>Shim layer implementing the V8 API on top of SpiderMonkey</li>
+            <li>Almost no changes to Node or SpiderMonkey</li>
+		</ul>
 	</section>
+    <!--
+    SpiderNode attempts to be a drop-in replacement for Node based on SpiderMonkey.
+    The implementation works by implementing the V8 API on top of the JSAPI,
+    with the goal of being source compatible with code using the V8 embedding API.
+    So far we have upstreamed a few patches to SpiderMonkey with a few additional
+    patches pending, and have one modification to the Node source code to stop
+    using |for (const x of iterable)|.
+    -->
+
 	<section class="slide">
-		<h2>Plain text on your slides</h2>
-		<p>Lorem ipsum dolor sit amet, consectetur <a href="#4">adipisicing</a> elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, <em>quis nostrud</em> exercitation ullamco laboris <strong>nisi ut aliquip</strong> ex ea commodo consequat. Duis aute irure <i>dolor</i> in reprehenderit in voluptate velit esse cillum <b>dolore</b> eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in <code>&lt;culpa&gt;</code> qui officia deserunt mollit anim id est laborum.</p>
+      <h2>SpiderShim</h2>
+		<ul>
+            <li>The Good parts
+              <ul>
+                <li>V8/JS Value representation</li>
+              </ul>
+            </li>
+            <li>The Bad parts
+              <ul>
+                <li>Representing handles to GC roots</li>
+              </ul>
+            </li>
+            <li>The Ugly parts
+              <ul>
+                <li>Object/function templates</li>
+              </ul>
+            </li>
+		</ul>
 	</section>
+    <!--
+    While working on SpiderNode, we came across different parts of the API where
+    the mapping from V8 to SpiderMonkey concepts varied from very straightforward
+    to extremely ugly.
+
+    For example, V8 encodes small integers as int32 and uses a fat 64-bit value
+    representation for other data, but this fact is hidden at the API boundaries,
+    so we made SpiderShim's V8::Value be 64-bit always and binary compatible with
+    JS::Value.
+
+    Mapping of the GC rooting API was difficult since the underlying mechanism in
+    V8 and SpiderMonkey are vastly different.  We managed to simulate the V8
+    behavior on top of SpiderMonkey by having a giant Rooted linked list in order
+    to be able to pass pointers to the list items behind v8::Local, but this is
+    probably going to turn out to be slow if not because of anything else because
+    we'd have many more GC roots than strictly necessary.
+
+    Then there are things for which there was no underlying SpiderMonkey concept.
+    For example, V8's Object/FunctionTemplate, where we needed to write a lot of
+    glue code that hopefully simulates V8's observed behavior.
+    -->
+
 	<section class="slide">
-		<h2>Two columns if you like</h2>
-		<p class="double">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.</p>
+      <h2>Current Status</h2>
+		<ul>
+          <li>As of last week, we can run SpiderNode!</li>
+          <li>Still a few functions left to implement</li>
+          <li>Try running more V8 tests</li>
+          <li>Figure out the next steps</li>
+		</ul>
 	</section>
+    <!--
+    Since we started with an existing code base, we spent around 2 months working
+    on the individual bits and pieces used by Node, without being able to test any
+    of the actual work because we couldn't link Node due to the missing symbols.
+    We started to write gtests for things we were implementing, and after a while
+    we started porting the V8 API tests which examined stuff that we support.
+
+    As of early last week, we managed to link and run SpiderNode by stubbing out
+    a few remaining functions which we're working on finishing.  Currently if you
+    have a valid Node application, it should work, but things are brittle, and if
+    your program throws an exception or encounters an error, you're mostly on your
+    own.
+    -->
+
 	<section class="slide">
-		<h2>All kind of lists</h2>
-		<ol>
-			<li>Simple lists are marked with bullets</li>
-			<li>Ordered lists begin with a number</li>
-			<li>You can even nest lists one inside another
-				<ul>
-					<li>Or mix their types</li>
-					<li>But do not go too far</li>
-					<li>Otherwise audience will be bored</li>
-				</ul>
-			</li>
-			<li>Look, seven rows exactly!</li>
-		</ol>
+		<h2 class="shout"><a href="server.js" target="_blank">Demo</a></h2>
+
+		<!--
+        The slides here were served off of a <a href="server.js" target="_blank">Node HTTP server</a>!
+		-->
 	</section>
-	<section class="slide">
-		<h2>Serious citations</h2>
-		<figure>
-			<blockquote>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.</p>
-			</blockquote>
-			<figcaption>Marcus Tullius Cicero</figcaption>
-		</figure>
-	</section>
-	<section class="slide">
-		<h2>Code samples</h2>
-		<pre>
-			<code>&lt;!DOCTYPE html&gt;</code>
-			<code class="mark">&lt;html lang="en"&gt;</code>
-			<code><mark>&lt;head&gt;</mark> <span class="comment">&lt;!--Comment--&gt;</span></code>
-			<code>    &lt;title&gt;Shower&lt;/title&gt;</code>
-			<code>    &lt;meta charset="<mark class="important">UTF-8</mark>"&gt;</code>
-			<code>    &lt;link rel="stylesheet" href="screen.css"&gt;</code>
-			<code><mark>&lt;/head&gt;</mark></code>
-		</pre>
-	</section>
-	<section class="slide">
-		<h2>Even tables</h2>
-		<table>
-		<tr>
-			<th scope="col">Locavore</th>
-			<th>Umami</th>
-			<th>Helvetica</th>
-			<th>Vegan</th>
-		</tr>
-		<tr>
-			<th scope="row">Fingerstache</th>
-			<td>Kale</td>
-			<td>Chips</td>
-			<td>Keytar</td>
-		</tr>
-		<tr>
-			<th scope="row">Sriracha</th>
-			<td>Gluten-free</td>
-			<td>Ennui</td>
-			<td>Keffiyeh</td>
-		</tr>
-		<tr>
-			<th scope="row">Thundercats</th>
-			<td>Jean</td>
-			<td>Shorts</td>
-			<td>Biodiesel</td>
-		</tr>
-		<tr>
-			<th scope="row">Terry</th>
-			<td>Richardson</td>
-			<td>Swag</td>
-			<td>Blog</td>
-		</tr>
-		</table>
-		<p>It’s good to have information organized.</p>
-	</section>
-	<section class="slide" id="picture">
-		<h2>Pictures</h2>
-		<img src="pictures/picture.jpg" alt="" class="cover">
-		<style>
-			#picture h2 {
-				color:#FFF;
-				}
-		</style>
-	</section>
-	<section class="slide">
-		<h2 class="shout shrink">You can even shout this way</h2>
-	</section>
-	<section class="slide">
-		<h2>Inner navigation</h2>
-		<ol>
-			<li>Lets you reveal list items one by one</li>
-			<li class="next">To keep some key points</li>
-			<li class="next">In secret from audience</li>
-			<li class="next">But it will work only once</li>
-			<li class="next">Nobody wants to see the same joke twice</li>
-		</ol>
-	</section>
-	<section class="slide grid">
-		<h2>All nicely aligned to grid</h2>
-	</section>
-	<section class="slide" id="see-more">
-		<h2 class="shout">
-			<img src="pictures/logo.svg" alt="Shower logo">
-			<a href="https://github.com/shower/shower">See more on GitHub</a>
-		</h2>
-		<style>
-			#see-more h2 {
-				font-size:100px
-				}
-			#see-more img {
-				width:0.72em;
-				height:0.72em;
-				}
-		</style>
-	</section>
+
 	<p class="badge">
-		<a href="https://github.com/shower/shower">Fork me on GitHub</a>
+		<a href="https://github.com/mykmelez/positron-spidernode-talk">Fork me on GitHub</a>
 	</p>
 	<!--
 		To hide progress bar from entire presentation
@@ -310,7 +281,14 @@
 		-->
 	<div class="progress"></div>
 	<script src="shower/shower.min.js"></script>
-	<!-- Copyright © 2015 Yours Truly, Famous Inc. -->
-	<!-- Photos by John Carey, fiftyfootshadows.net -->
+
+	<!-- Focus a text field to work around Positron issue #82
+		 (https://github.com/mozilla/positron/issues/82). -->
+	<input id="positron-hack" style="height: 12px; width: 12px;">
+	<script>
+		window.addEventListener('load', function() {
+			document.getElementById('positron-hack').focus();
+		}, false);
+	</script>
 </body>
 </html>
