@@ -57,18 +57,16 @@
 
 	<section class="slide">
 		<h2>Positron</h2>
-		<ol>
-			<li>Electron-compatible</li>
-			<li>Gecko/SpiderMonkey</li>
-			<li>Mozilla application</li>
+		<ul>
+			<li>Electron-compatible app framework</li>
+			<li>Gecko instead of Chromium</li>
+			<li>--enable-application=positron</li>
 			<li><a href="https://github.com/mozilla/positron/">github.com/mozilla/positron</a></li>
-		</ol>
+		</ul>
 		<!--
-		Positron is an Electron-compatible application framework that uses
-		Gecko and SpiderMonkey in place of Blink and V8, i.e. Chromium.
-		It's a Mozilla app in a GitHub fork of gecko-dev (mozilla/positron)
-		with minimal changes to upstream code (in our case upstream is Mozilla,
-		Electron, and Node).
+		Positron is an Electron-compatible desktop application framework
+		that uses Gecko instead of Chromium.  It's a Mozilla app, but it lives
+		on GitHub in a fork of gecko-dev, with minimal changes to upstream code.
 		-->
 	</section>
 
@@ -79,100 +77,90 @@
 	<section class="slide">
 		<h2 class="shout">Tofino</h2>
 		<!--
-		Positron's initial goal is to run Tofino, the browser interaction
-		experiment from the Firefox team, and provide an Electron-like
-		development environment and deployment toolchain, to make it possible
-		for that team to develop and ship Tofino on our platform.
+		So why Positron?  Well, our initial goal is to make it possible
+		to run Tofino on Gecko.
+		-->
+	</section>
+
+	<section class="slide">
+		<h2>Electron</h2>
+		<ul>
+			<li>shallow learning curve</li>
+			<li>robust ecosystem (Node)</li>
+			<li>momentum (Tofino, Brave, Min, etc.)</li>
+		</ul>
+		<!--
+		But also, Electron has a shallow and gentle learning curve,
+		especially for web developers.  It also has a robust ecosystem
+		of Node packages.  And it has momentum in the marketplace
+		for desktop application frameworks.
+
+		Desktop browser experiments are proliferating, and they're mostly
+		being built on Electron, including not only Tofino but also Brave,
+		a browser called Min, and other such projects.
+
+		Electron is powering the next generation of desktop browsers,
+		so it's worth embracing.
 		-->
 	</section>
 
 	<section class="slide">
 		<h2>Status</h2>
-		<ol>
+		<ul>
 			<li>"main" script</li>
 			<li>BrowserWindow</li>
 			<li>IPC</li>
 			<li>&lt;webview&gt;</li>
-			<li>module loader</li>
-		</ol>
+			<li>some Node modules</li>
+		</ul>
 		<!--
-		We started developing it in April, and it currently runs a small subset
-		of relatively simple Electron apps.  We have partial support for running
-		the "main" script of an Electron app, BrowserWindows, IPC,
-		and <webview>. We support some Node modules with a Node-like (which is
-		to say, not-Node) module loader.
+		We started working on Positron in April, and it currently runs
+		a small subset of Electron apps.  It has partial support for running
+		the "main" script of an Electron app, opening BrowserWindows,
+		doing IPC between BrowserWindows and the main script,
+		and loading unprivileged pages in <webview> elements.
+
+		It supports some Node modules with a Node-like module loader,
+		although it doesn't yet have Node itself.
 		-->
 	</section>
 
 	<section class="slide">
 		<h2>Roadmap</h2>
-		<ol>
+		<ul>
 			<li>Node</li>
+			<li>Electron APIs</li>
 			<li>Tofino</li>
 			<li>???</li>
 			<li>Profit!</li>
-		</ol>
+		</ul>
 		<!--
-		Our roadmap to Tofino runs through Node, so our next big milestone
-		is to get Node running in Positron so we can load arbitrary modules,
-		after which our focus will shift to implementing the remaining Electron
-		APIs that Tofino uses (f.e. Menu).  We don't have plans on the roadmap
-		beyond Tofino, so additional Electron compatibility and generalization
-		to more use cases is TBD.
-		-->
-	</section>
-
-	<section class="slide">
-		<h2 class="shout">Why Electron?</h2>
-	</section>
-
-	<section class="slide">
-		<h2>Electron</h2>
-		<ol>
-			<li>shallow learning curve</li>
-			<li>robust ecosystem</li>
-			<li>momentum</li>
-		</ol>
-		<!--
-		There are reasons to emulate Electron beyond Tofino.
-
-		Electron has a shallow learning curve (especially for web developers),
-		a robust ecosystem (including Node and its zillions of packages),
-		and momentum in the marketplace for desktop application frameworks.
-
-		Desktop browser experiments are proliferating, and they're mostly being
-		built on Electron, including Tofino, Brave, and Min.
-
-		Electron, and its enabling technologies, like GitHub and Node,
-		are powering the next generation of desktop browsers.  It's a brave,
-		new world that is worth embracing.
+		Our next big task is to get Node running in Positron, after which
+		we'll implement the remaining Electron APIs that Tofino uses
+		and then determine the additional use cases for the project.
 		-->
 	</section>
 
 	<section class="slide">
 		<h2>Future of Embedding</h2>
-		<ol>
+		<ul>
 			<li>Tomorrow 2:15pm</li>
 			<li>Hilton Meeting Room 15-17</li>
 			<li>Metropole Tower Wing</li>
-		</ol>
+		</ul>
 		<!--
-		What else should we do to generalize Gecko for new use cases?
-		Let's discuss that in the Future of Embedding session!
-		Tomorrow, Friday, June 17, 2:15pm, in the Hilton Meeting Room 15-17,
-		Metropole Tower Wing.
+		If you're interested in chatting about the future of Positron
+		and Gecko embedding, join my Future of Embedding session
+		tomorrow afternoon at 2:15 in Meeting Room 15-17.
 		-->
 	</section>
 
 	<section class="slide">
 		<h2 class="shout">Demo</h2>
 		<!--
-		Only if we're using our own laptop and can get this presentation working
-		in the sample browser app:
-
-		At this point I'd show you a demo, except that this is a lightning talk,
-		not a lightning show.  And also, I already did, because I'm browsing
-		this presentation in a sample Electron browser app running in Positron.
+		Otherwise, at this point I'd show you a demo, except that this is
+		a lightning talk, and besides, I already did, because I'm browsing
+		this presentation in an Electron browser app running in Positron.
 		-->
 	</section>
 
